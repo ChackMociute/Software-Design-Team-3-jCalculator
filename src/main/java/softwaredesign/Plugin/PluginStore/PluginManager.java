@@ -2,6 +2,7 @@ package softwaredesign.Plugin.PluginStore;
 
 import softwaredesign.Equation.AST.ASTNode;
 import softwaredesign.Equation.AST.LiteralNode;
+import softwaredesign.Equation.AST.OperatorNode;
 import softwaredesign.Plugin.PluginBase;
 
 import java.util.HashMap;
@@ -23,7 +24,7 @@ public class PluginManager {
         return new String[0];
     }
 
-    public LiteralNode dispatchToplugin(ASTNode operation){
+    public LiteralNode dispatchToplugin(OperatorNode operation){
         return new LiteralNode("NULL");
     }
 

@@ -6,4 +6,9 @@ public class LiteralNode extends ASTNode{
     public LiteralNode(String value){
         this.value = value;
     }
+
+    @Override
+    public String toString(){
+        return value;
+    }
 }

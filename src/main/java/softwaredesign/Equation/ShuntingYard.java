@@ -22,8 +22,19 @@ public final class ShuntingYard {
         return solveAST(root);
     }
 
-    public static String solveAST(ASTNode root){
-        return "";
+    private static String solveAST(ASTNode root){
+        if(root instanceof OperatorNode) root = solveNode((OperatorNode)root);
+        return root.toString();
+    }
+
+    // Recursive function to walk the tree and solve each node
+    private static LiteralNode solveNode(OperatorNode operator){
+        if(operator.left instanceof OperatorNode)
+            operator.left = solveNode((OperatorNode)operator.left);
+        if(operator.right instanceof OperatorNode)
+            operator.right = solveNode((OperatorNode)operator.right);
+
+        return pluginManager.dispatchToplugin(operator);
     }
 
     private static ASTNode generateAST(String equation){
