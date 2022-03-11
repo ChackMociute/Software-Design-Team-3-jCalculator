@@ -24,6 +24,8 @@ public class Controller {
 
         pluginManager = new PluginManager();
         pluginStoreManager = new PluginStoreManager(pluginManager);
+
+        ShuntingYard.setPluginManager(pluginManager);
     }
 
     public PluginManager getPluginManager(){
