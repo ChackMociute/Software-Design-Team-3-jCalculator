@@ -15,7 +15,29 @@ public final class ShuntingYard {
         pluginManager = newPluginManager;
     }
 
-    public static ASTNode generateAST(String equation){
+    public static String calculateEquation(String equationString){
+        ASTNode root = generateAST(equationString);
+        if(root instanceof ErrorNode) return ((ErrorNode)root).error.toString();
+
+        return solveAST(root);
+    }
+
+    private static String solveAST(ASTNode root){
+        if(root instanceof OperatorNode) root = solveNode((OperatorNode)root);
+        return root.toString();
+    }
+
+    // Recursive function to walk the tree and solve each node
+    private static LiteralNode solveNode(OperatorNode operator){
+        if(operator.left instanceof OperatorNode)
+            operator.left = solveNode((OperatorNode)operator.left);
+        if(operator.right instanceof OperatorNode)
+            operator.right = solveNode((OperatorNode)operator.right);
+
+        return pluginManager.dispatchToplugin(operator);
+    }
+
+    private static ASTNode generateAST(String equation){
         var errorNode = new ErrorNode();
         Queue<String> queue = generatePostFixQueue(equation, errorNode);
         ASTNode node = generateASTRoot(queue);
@@ -49,7 +71,6 @@ public final class ShuntingYard {
                 }
             }else if(pluginManager.isOperator(token)){
 
-                // Handle functions
                 if(isFunction(token)){
                     operatorStack.add(token);
                     continue;
