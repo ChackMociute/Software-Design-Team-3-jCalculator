@@ -15,7 +15,18 @@ public final class ShuntingYard {
         pluginManager = newPluginManager;
     }
 
-    public static ASTNode generateAST(String equation){
+    public static String calculateEquation(String equationString){
+        ASTNode root = generateAST(equationString);
+        if(root instanceof ErrorNode) return ((ErrorNode)root).error.toString();
+
+        return solveAST(root);
+    }
+
+    public static String solveAST(ASTNode root){
+        return "";
+    }
+
+    private static ASTNode generateAST(String equation){
         var errorNode = new ErrorNode();
         Queue<String> queue = generatePostFixQueue(equation, errorNode);
         ASTNode node = generateASTRoot(queue);
