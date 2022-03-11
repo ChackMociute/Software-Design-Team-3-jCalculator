@@ -1,10 +1,15 @@
 package main.java.softwaredesign;
-import java.util.Dictionary;
+
+import java.util.HashMap;
 import java.util.Map;
 
 public class PluginManager {
     private Map<String, Integer> operatorPrecedences;
     private PluginBase[] plugins;
+
+    public PluginManager(){
+        operatorPrecedences = new HashMap<>();
+    }
 
     public boolean reloadPlugins(){
         return true;
@@ -19,7 +24,7 @@ public class PluginManager {
     }
 
     public int getOperatorPrecedence(String operator){
-        return 0;
+        return operatorPrecedences.get(operator);
     }
 
     public boolean isOperator(String operator){
