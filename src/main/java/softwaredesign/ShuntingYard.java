@@ -1,7 +1,6 @@
 package softwaredesign;
 
 import java.util.ArrayDeque;
-import java.util.Deque;
 import java.util.Queue;
 import java.util.Stack;
 
@@ -15,7 +14,7 @@ public final class ShuntingYard {
     public static ASTNode generateAST(String equation){
         var errorNode = new ErrorNode();
         Queue<String> queue = generatePostFixQueue(equation, errorNode);
-        ASTNode node = generateNodeStack(queue);
+        ASTNode node = generateASTRoot(queue);
 
         if(errorNode.error != Error.NONE) return errorNode;
         return node;
@@ -74,7 +73,7 @@ public final class ShuntingYard {
         return (ArrayDeque)outputQueue;
     }
 
-    private static ASTNode generateNodeStack(Queue<String> queue){
+    private static ASTNode generateASTRoot(Queue<String> queue){
         Stack<ASTNode> nodeStack = new Stack<>();
 
         while(!queue.isEmpty()){
