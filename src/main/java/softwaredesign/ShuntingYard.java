@@ -23,7 +23,7 @@ public final class ShuntingYard {
     private static ArrayDeque<String> generatePostFixQueue(String equation, ErrorNode outErrorNode){
         String[] tokens = equation.split(" ");
 
-        Queue<String> outputQueue = new ArrayDeque<>();
+        ArrayDeque<String> outputQueue = new ArrayDeque<>();
         Stack<String> operatorStack = new Stack<>();
 
         for(String token : tokens){
@@ -70,7 +70,7 @@ public final class ShuntingYard {
             outputQueue.add(operatorStack.pop());
         }
 
-        return (ArrayDeque)outputQueue;
+        return outputQueue;
     }
 
     private static ASTNode generateASTRoot(Queue<String> queue){
