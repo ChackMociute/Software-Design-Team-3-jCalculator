@@ -5,6 +5,8 @@ import softwaredesign.Equation.AST.LiteralNode;
 
 import java.util.Dictionary;
 
+import org.pf4j.Plugin;
+
 //TODO: make it extend pf4j
 public interface PluginBase {
     public String getName();

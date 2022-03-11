@@ -11,7 +11,9 @@ repositories {
     mavenCentral()
 }
 
+
 dependencies {
+    compile group: 'org.pf4j', name: 'pf4j', version: '3.6.0'
+    
     testImplementation group: 'junit', name: 'junit', version: '4.13.1'
-    PF4J group: 'org.pf4j', name: 'pf4j', version: '2.5.1'
 }
