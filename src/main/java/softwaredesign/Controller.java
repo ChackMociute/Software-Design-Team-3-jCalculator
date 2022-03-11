@@ -30,17 +30,26 @@ public class Controller {
         return pluginManager;
     }
 
-    public void start(String input){
-        var fullEquation = new Equation(input);
-        fullEquation.computeAnswer();
+    public void start(){
+        while(true){
+            String input = calcInterface.getInput();
 
-        if(!fullEquation.getError().equals("")){
-            calcInterface.displayError(fullEquation.getError());
-        }else{
-            String answer = fullEquation.getAnswer();
-            calcInterface.displayAnswer(answer);
+            if(input.equals("quit")) {
+                break;
+            }
+
+            var fullEquation = new Equation(input);
+
+            fullEquation.computeAnswer();
+
+            if(!fullEquation.getError().equals("")){
+                calcInterface.displayError(fullEquation.getError());
+            }else{
+                String answer = fullEquation.getAnswer();
+                calcInterface.displayAnswer(answer);
+            }
+
+            history.addEquation(fullEquation);
         }
-
-        history.addEquation(fullEquation);
     }
 }

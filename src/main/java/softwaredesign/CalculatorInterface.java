@@ -1,6 +1,10 @@
 package softwaredesign;
 
+import java.util.Scanner;
+
 public class CalculatorInterface {
+    final Scanner scanner = new Scanner(System.in);
+
     public void renderEquation(Equation equation){
         
     }
@@ -14,6 +18,7 @@ public class CalculatorInterface {
     }
 
     public String getInput(){
-        return "";
+        return scanner.nextLine();
+
     }
 }
