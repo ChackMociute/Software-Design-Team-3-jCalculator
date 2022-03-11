@@ -1,22 +1,55 @@
-package main.java.softwaredesign;
+package softwaredesign;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.Queue;
 import java.util.Stack;
 
+import softwaredesign.ASTNode;
+
 public class Equation {
     private final String equationString;
+    private String answer;
     private String error;
     private ASTNode treeHead;
 
     public static PluginManager pluginManager;
+    
+    public Equation(String equationString){
+        this.equationString = equationString;
+        error = "";
+
+        generateAST();
+    }
+
+    public String getEquation(){
+        return equationString;
+    }
+
+    public void computeAnswer(){
+        answer = "5";
+    }
+
+    public String getError(){
+        return error;
+    }
+
+    public String getAnswer(){
+        return answer;
+    }
 
     private boolean isFunction(String operator){
         return operator.length() > 1;
     }
 
     private void generateAST(){
+        Queue<String> queue = generateArrayDeque();
+        Stack<ASTNode> nodeStack = generateNodeStack(queue);
+
+        if(!nodeStack.empty()) treeHead = nodeStack.peek();
+    }
+
+    private ArrayDeque<String> generateArrayDeque(){
         String[] tokens = equationString.split(" ");
 
         Queue<String> outputQueue = new ArrayDeque<>();
@@ -31,7 +64,7 @@ public class Equation {
 
                     if(operatorStack.empty()){
                         error = "Mismatched parentheses";
-                        return;
+                        return new ArrayDeque<>();
                     }
                 }
                 operatorStack.pop();
@@ -61,16 +94,19 @@ public class Equation {
         while(!operatorStack.empty()){
             if(operatorStack.peek().equals("(")){
                 error = "Mismatched parentheses";
-                return;
+                return new ArrayDeque<>();
             }
             outputQueue.add(operatorStack.pop());
         }
 
+        return (ArrayDeque)outputQueue;
+    }
+
+    private Stack<ASTNode> generateNodeStack(Queue<String> queue){
         Stack<ASTNode> nodeStack = new Stack<>();
 
-        // Convert to tree
-        while(!outputQueue.isEmpty()){
-            String token = outputQueue.remove();
+        while(!queue.isEmpty()){
+            String token = queue.remove();
 
             if(pluginManager.isOperator(token)){
                 Operator newNode = new Operator(token);
@@ -84,25 +120,6 @@ public class Equation {
             }
         }
 
-        treeHead = nodeStack.peek();
-    }
-
-    public Equation(String equationString){
-        this.equationString = equationString;
-        error = "";
-
-        generateAST();
-    }
-
-    public String getEquation(){
-        return equationString;
-    }
-
-    public void computeAnswer(){
-
-    }
-
-    public String getError(){
-        return error;
+        return nodeStack;
     }
 }

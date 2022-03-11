@@ -1,4 +1,4 @@
-package main.java.softwaredesign;
+package softwaredesign;
 
 public class PluginData {
     String name;

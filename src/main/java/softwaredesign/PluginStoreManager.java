@@ -1,4 +1,4 @@
-package main.java.softwaredesign;
+package softwaredesign;
 
 public class PluginStoreManager {
     private PluginData[] avaliablePlugins;

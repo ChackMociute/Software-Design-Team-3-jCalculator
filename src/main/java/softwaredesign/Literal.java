@@ -1,4 +1,4 @@
-package main.java.softwaredesign;
+package softwaredesign;
 
 public class Literal extends ASTNode{
     public String value;

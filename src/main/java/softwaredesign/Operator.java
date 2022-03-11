@@ -1,4 +1,4 @@
-package main.java.softwaredesign;
+package softwaredesign;
 
 import java.util.ArrayList;
 

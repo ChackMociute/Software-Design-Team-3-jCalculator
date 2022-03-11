@@ -1,9 +1,15 @@
-package main.java.softwaredesign;
+package softwaredesign;
+
+import softwaredesign.Equation;
 
 public class Controller {
     private static Controller instance;
 
     public static Controller getInstance(){
+        if(instance == null){
+            instance = new Controller();
+        }
+
         return instance;
     }
 
@@ -12,9 +18,7 @@ public class Controller {
     PluginManager pluginManager;
     PluginStoreManager pluginStoreManager;
 
-    public Controller(){
-        instance = this;
-
+    private Controller(){
         calcInterface = new CalculatorInterface();
         history = new History();
 
@@ -26,7 +30,17 @@ public class Controller {
         return pluginManager;
     }
 
-    public void start(){
+    public void start(String input){
+        var fullEquation = new Equation(input);
+        fullEquation.computeAnswer();
 
+        if(!fullEquation.getError().equals("")){
+            calcInterface.displayError(fullEquation.getError());
+        }else{
+            String answer = fullEquation.getAnswer();
+            calcInterface.displayAnswer(answer);
+        }
+
+        history.addEquation(fullEquation);
     }
 }

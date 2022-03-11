@@ -1,4 +1,4 @@
-package main.java.softwaredesign;
+package softwaredesign;
 
 public abstract class ASTNode {
     public ASTNode parent;
