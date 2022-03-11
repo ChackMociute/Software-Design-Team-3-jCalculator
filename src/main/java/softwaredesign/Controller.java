@@ -40,15 +40,6 @@ public class Controller {
 
             var fullEquation = new Equation(input);
 
-            fullEquation.computeAnswer();
-
-            if(!fullEquation.getError().equals("")){
-                calcInterface.displayError(fullEquation.getError());
-            }else{
-                String answer = fullEquation.getAnswer();
-                calcInterface.displayAnswer(answer);
-            }
-
             history.addEquation(fullEquation);
         }
     }

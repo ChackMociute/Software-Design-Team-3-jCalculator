@@ -11,6 +11,7 @@ public class Equation {
         this.equationString = equationString;
 
         treeHead = ShuntingYard.generateAST(equationString);
+        computeAnswer();
     }
 
     public String getEquation(){
@@ -18,12 +19,18 @@ public class Equation {
     }
 
     public void computeAnswer(){
-        answer = "5";
+        if(!isError()){
+
+        }
     }
 
     public String getError(){
         if(treeHead instanceof ErrorNode) return ((ErrorNode)treeHead).error.toString();
         return "";
+    }
+
+    public boolean isError(){
+        return !getError().equals("");
     }
 
     public String getAnswer(){
