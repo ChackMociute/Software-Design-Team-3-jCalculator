@@ -60,7 +60,6 @@ public final class ShuntingYard {
                 }
             }else if(pluginManager.isOperator(token)){
 
-                // Handle functions
                 if(isFunction(token)){
                     operatorStack.add(token);
                     continue;
