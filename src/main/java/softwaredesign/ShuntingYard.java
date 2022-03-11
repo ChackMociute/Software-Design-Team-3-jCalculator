@@ -7,8 +7,8 @@ import java.util.Stack;
 public final class ShuntingYard {
     private static PluginManager pluginManager;
     
-    public static void setPluginManager(PluginManager NewPluginManager){
-        pluginManager = NewPluginManager;
+    public static void setPluginManager(PluginManager newPluginManager){
+        pluginManager = newPluginManager;
     }
 
     public static ASTNode generateAST(String equation){
