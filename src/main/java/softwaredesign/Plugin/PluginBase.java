@@ -1,4 +1,7 @@
-package softwaredesign;
+package softwaredesign.Plugin;
+
+import softwaredesign.Equation.AST.ASTNode;
+import softwaredesign.Equation.AST.LiteralNode;
 
 import java.util.Dictionary;
 
@@ -6,6 +9,6 @@ import java.util.Dictionary;
 public interface PluginBase {
     public String getName();
     public Dictionary<String, Integer> getOperatorPrecedences();
-    public Literal processNode(ASTNode operation);
+    public LiteralNode processNode(ASTNode operation);
     public boolean canProcess(ASTNode operation);
 }

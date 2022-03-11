@@ -1,6 +1,10 @@
 package softwaredesign;
 
-import softwaredesign.Equation;
+import softwaredesign.Equation.Equation;
+import softwaredesign.Equation.History;
+import softwaredesign.Equation.ShuntingYard;
+import softwaredesign.Plugin.PluginStore.PluginManager;
+import softwaredesign.Plugin.PluginStore.PluginStoreManager;
 
 public class Controller {
     private static Controller instance;

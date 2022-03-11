@@ -1,4 +1,4 @@
-package softwaredesign;
+package softwaredesign.Equation.AST;
 
 public class ErrorNode extends ASTNode {
     public Error error;

@@ -1,18 +1,16 @@
-package softwaredesign;
+package softwaredesign.Equation.AST;
 
-import java.util.ArrayList;
-
-public class Operator extends ASTNode {
+public class OperatorNode extends ASTNode {
     public ASTNode left;
     public ASTNode right;
     public String operator;
 
     public boolean isCalculatable(){
         // If any of the children are uncalculated operators, this node is not calculatable
-        return left instanceof Literal && right instanceof Literal;
+        return left instanceof LiteralNode && right instanceof LiteralNode;
     }
 
-    public Operator(String operator){
+    public OperatorNode(String operator){
         this.operator = operator;
     }
 }

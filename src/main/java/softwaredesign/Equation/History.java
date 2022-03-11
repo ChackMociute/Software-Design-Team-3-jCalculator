@@ -1,4 +1,6 @@
-package softwaredesign;
+package softwaredesign.Equation;
+
+import softwaredesign.Equation.Equation;
 
 public class History {
     private Equation[] equations;

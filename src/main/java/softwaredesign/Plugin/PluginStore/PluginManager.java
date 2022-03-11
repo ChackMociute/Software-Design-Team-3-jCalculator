@@ -1,4 +1,8 @@
-package softwaredesign;
+package softwaredesign.Plugin.PluginStore;
+
+import softwaredesign.Equation.AST.ASTNode;
+import softwaredesign.Equation.AST.LiteralNode;
+import softwaredesign.Plugin.PluginBase;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -19,8 +23,8 @@ public class PluginManager {
         return new String[0];
     }
 
-    public Literal dispatchToplugin(ASTNode operation){
-        return new Literal("NULL");
+    public LiteralNode dispatchToplugin(ASTNode operation){
+        return new LiteralNode("NULL");
     }
 
     public int getOperatorPrecedence(String operator){

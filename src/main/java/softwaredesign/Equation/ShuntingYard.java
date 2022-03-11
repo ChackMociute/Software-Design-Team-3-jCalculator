@@ -1,4 +1,8 @@
-package softwaredesign;
+package softwaredesign.Equation;
+
+import softwaredesign.Equation.AST.*;
+import softwaredesign.Equation.AST.Error;
+import softwaredesign.Plugin.PluginStore.PluginManager;
 
 import java.util.ArrayDeque;
 import java.util.Queue;
@@ -80,14 +84,14 @@ public final class ShuntingYard {
             String token = queue.remove();
 
             if(pluginManager.isOperator(token)){
-                Operator newNode = new Operator(token);
+                OperatorNode newNode = new OperatorNode(token);
                 newNode.left = nodeStack.pop();
 
                 if(!isFunction(token)) newNode.right = nodeStack.pop();
 
                 nodeStack.push(newNode);
             }else{
-                nodeStack.push(new Literal(token));
+                nodeStack.push(new LiteralNode(token));
             }
         }
 

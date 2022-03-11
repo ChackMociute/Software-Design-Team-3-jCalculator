@@ -1,4 +1,4 @@
-package softwaredesign;
+package softwaredesign.Equation.AST;
 
 public enum Error {
     NONE{

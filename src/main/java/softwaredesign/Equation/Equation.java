@@ -1,6 +1,7 @@
-package softwaredesign;
+package softwaredesign.Equation;
 
-import softwaredesign.ASTNode;
+import softwaredesign.Equation.AST.ASTNode;
+import softwaredesign.Equation.AST.ErrorNode;
 
 public class Equation {
     private final String equationString;

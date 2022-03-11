@@ -1,5 +1,7 @@
 package softwaredesign;
 
+import softwaredesign.Equation.Equation;
+
 import java.util.Scanner;
 
 public class CalculatorInterface {
