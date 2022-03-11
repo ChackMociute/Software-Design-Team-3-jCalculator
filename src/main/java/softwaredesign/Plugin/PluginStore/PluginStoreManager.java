@@ -1,6 +1,6 @@
 package softwaredesign.Plugin.PluginStore;
 
-import softwaredesign.Plugin.PluginData;
+import softwaredesign.Plugin.PluginManager;
 
 public class PluginStoreManager {
     private PluginData[] avaliablePlugins;

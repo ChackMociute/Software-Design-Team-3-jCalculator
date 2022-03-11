@@ -1,4 +1,4 @@
-package softwaredesign.Plugin;
+package softwaredesign.Plugin.PluginStore;
 
 public class PluginData {
     String name;

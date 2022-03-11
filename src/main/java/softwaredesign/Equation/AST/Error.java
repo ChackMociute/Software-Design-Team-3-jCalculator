@@ -18,5 +18,9 @@ public enum Error {
         public String toString(){
             return "Mismatched parentheses error";
         }
+    },
+    UNKNOWN_OP{
+        @Override
+        public String toString() { return "Unknown operator";}
     }
 }

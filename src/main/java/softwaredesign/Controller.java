@@ -3,7 +3,7 @@ package softwaredesign;
 import softwaredesign.Equation.Equation;
 import softwaredesign.Equation.History;
 import softwaredesign.Equation.ShuntingYard;
-import softwaredesign.Plugin.PluginStore.PluginManager;
+import softwaredesign.Plugin.PluginManager;
 import softwaredesign.Plugin.PluginStore.PluginStoreManager;
 
 public class Controller {
@@ -45,8 +45,9 @@ public class Controller {
             }
 
             var fullEquation = new Equation(input);
-
             history.addEquation(fullEquation);
+
+            calcInterface.renderEquation(fullEquation);
         }
     }
 }

@@ -2,7 +2,7 @@ package softwaredesign.Equation;
 
 import softwaredesign.Equation.AST.*;
 import softwaredesign.Equation.AST.Error;
-import softwaredesign.Plugin.PluginStore.PluginManager;
+import softwaredesign.Plugin.PluginManager;
 
 import java.util.ArrayDeque;
 import java.util.Queue;
@@ -28,13 +28,13 @@ public final class ShuntingYard {
     }
 
     // Recursive function to walk the tree and solve each node
-    private static LiteralNode solveNode(OperatorNode operator){
+    private static ASTNode solveNode(OperatorNode operator){
         if(operator.left instanceof OperatorNode)
             operator.left = solveNode((OperatorNode)operator.left);
         if(operator.right instanceof OperatorNode)
             operator.right = solveNode((OperatorNode)operator.right);
 
-        return pluginManager.dispatchToplugin(operator);
+        return pluginManager.dispatchToPlugin(operator);
     }
 
     private static ASTNode generateAST(String equation){
