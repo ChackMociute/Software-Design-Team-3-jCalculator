@@ -1,15 +1,12 @@
 package softwaredesign.Plugin;
 
 import org.pf4j.DefaultPluginManager;
-import org.pf4j.JarPluginManager;
 import api.softwaredesign.AST.ASTNode;
 import api.softwaredesign.AST.Error;
-import api.softwaredesign.AST.ErrorNode;
-import api.softwaredesign.AST.LiteralNode;
-import api.softwaredesign.AST.OperatorNode;
+import api.softwaredesign.AST.ErrNode;
+import api.softwaredesign.AST.OpNode;
 import api.softwaredesign.PluginBase;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.List;
@@ -43,18 +40,18 @@ public class PluginManager {
         return true;
     }
 
-    public ASTNode dispatchToPlugin(OperatorNode operation){
+    public ASTNode dispatchToPlugin(OpNode operation){
 
         // Can't be dispatched if it's an error, so the error consumes the operation
-        if(operation.left instanceof ErrorNode) return operation.left;
-        if(operation.right instanceof ErrorNode) return operation.right;
+        if(operation.left instanceof ErrNode) return operation.left;
+        if(operation.right instanceof ErrNode) return operation.right;
 
         for(PluginBase plugin : plugins){
             if(plugin.canProcess(operation)){
                 return plugin.solveNode(operation);
             }
         }
-        return new ErrorNode(Error.UNKNOWN_OP);
+        return new ErrNode(Error.UNKNOWN_OP);
     }
 
     public int getOperatorPrecedence(String operator){

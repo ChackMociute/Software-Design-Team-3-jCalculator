@@ -1,7 +1,7 @@
 package api.softwaredesign;
 
-import api.softwaredesign.AST.LiteralNode;
-import api.softwaredesign.AST.OperatorNode;
+import api.softwaredesign.AST.LitNode;
+import api.softwaredesign.AST.OpNode;
 import java.util.Map;
 
 import org.pf4j.ExtensionPoint;
@@ -9,7 +9,7 @@ import org.pf4j.ExtensionPoint;
 public interface PluginBase extends ExtensionPoint {
     String getName();
     Map<String, Integer> getOperatorPrecedences();
-    LiteralNode solveNode(OperatorNode operation);
+    LitNode solveNode(OpNode operation);
 
-    boolean canProcess(OperatorNode operation);
+    boolean canProcess(OpNode operation);
 }

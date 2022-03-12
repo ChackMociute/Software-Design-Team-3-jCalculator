@@ -1,12 +1,12 @@
 package api.softwaredesign.AST;
 
-public class ErrorNode extends ASTNode {
+public class ErrNode extends ASTNode {
     public Error error;
 
-    public ErrorNode(Error error){
+    public ErrNode(Error error){
         this.error = error;
     }
-    public ErrorNode(){
+    public ErrNode(){
         this.error = Error.NONE;
     }
 

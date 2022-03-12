@@ -7,9 +7,9 @@ import java.util.Queue;
 import java.util.Stack;
 
 import api.softwaredesign.AST.ASTNode;
-import api.softwaredesign.AST.ErrorNode;
-import api.softwaredesign.AST.LiteralNode;
-import api.softwaredesign.AST.OperatorNode;
+import api.softwaredesign.AST.ErrNode;
+import api.softwaredesign.AST.LitNode;
+import api.softwaredesign.AST.OpNode;
 import api.softwaredesign.AST.Error;
 
 public final class CalculationDispatcher {
@@ -22,28 +22,28 @@ public final class CalculationDispatcher {
     public static String calculateEquation(String equationString){
 
         ASTNode root = generateAST(equationString);
-        if(root instanceof ErrorNode) return ((ErrorNode)root).error.toString();
+        if(root instanceof ErrNode) return ((ErrNode)root).error.toString();
 
         return solveAST(root);
     }
 
     private static String solveAST(ASTNode root){
-        if(root instanceof OperatorNode) root = solveNode((OperatorNode)root);
+        if(root instanceof OpNode) root = solveNode((OpNode)root);
         return root.toString();
     }
 
     // Recursive function to walk the tree and solve each node
-    private static ASTNode solveNode(OperatorNode operator){
-        if(operator.left instanceof OperatorNode)
-            operator.left = solveNode((OperatorNode)operator.left);
-        if(operator.right instanceof OperatorNode)
-            operator.right = solveNode((OperatorNode)operator.right);
+    private static ASTNode solveNode(OpNode operator){
+        if(operator.left instanceof OpNode)
+            operator.left = solveNode((OpNode)operator.left);
+        if(operator.right instanceof OpNode)
+            operator.right = solveNode((OpNode)operator.right);
 
         return pluginManager.dispatchToPlugin(operator);
     }
 
     private static ASTNode generateAST(String equation){
-        var errorNode = new ErrorNode();
+        var errorNode = new ErrNode();
         Queue<String> queue = generatePostFixQueue(equation, errorNode);
         ASTNode node = generateASTRoot(queue);
 
@@ -51,7 +51,7 @@ public final class CalculationDispatcher {
         return node;
     }
 
-    private static ArrayDeque<String> generatePostFixQueue(String equation, ErrorNode outErrorNode){
+    private static ArrayDeque<String> generatePostFixQueue(String equation, ErrNode outErrorNode){
         String[] tokens = equation.split(" ");
 
         ArrayDeque<String> outputQueue = new ArrayDeque<>();
@@ -110,18 +110,18 @@ public final class CalculationDispatcher {
             String token = queue.remove();
 
             if(pluginManager.isOperator(token)){
-                OperatorNode newNode = new OperatorNode(token);
+                OpNode newNode = new OpNode(token);
                 newNode.right = nodeStack.pop();
 
                 if(!isFunction(token)) newNode.left = nodeStack.pop();
 
                 nodeStack.push(newNode);
             }else{
-                nodeStack.push(new LiteralNode(token));
+                nodeStack.push(new LitNode(token));
             }
         }
 
-        if(nodeStack.isEmpty()) return new ErrorNode(Error.POSTFIX);
+        if(nodeStack.isEmpty()) return new ErrNode(Error.POSTFIX);
         return nodeStack.peek();
     }
 

@@ -1,9 +1,9 @@
 package api.softwaredesign.AST;
 
-public class LiteralNode extends ASTNode{
+public class LitNode extends ASTNode{
     public String value;
 
-    public LiteralNode(String value){
+    public LitNode(String value){
         this.value = value;
     }
 

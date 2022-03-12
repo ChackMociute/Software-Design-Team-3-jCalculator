@@ -6,10 +6,8 @@ import org.pf4j.PluginWrapper;
 
 
 import api.softwaredesign.PluginBase;
-import api.softwaredesign.AST.LiteralNode;
-import api.softwaredesign.AST.OperatorNode;
-import api.softwaredesign.AST.ErrorNode;
-import api.softwaredesign.AST.Error;
+import api.softwaredesign.AST.LitNode;
+import api.softwaredesign.AST.OpNode;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -42,12 +40,12 @@ public class VectorWrapper extends Plugin{
         }
 
         @Override
-        public LiteralNode solveNode(OperatorNode operation){
-            LiteralNode leftNode = (LiteralNode)operation.left;
-            LiteralNode rightNode = (LiteralNode)operation.right;
+        public LitNode solveNode(OpNode operation){
+            LitNode leftNode = (LitNode)operation.left;
+            LitNode rightNode = (LitNode)operation.right;
 
 
-            Vector result = null;
+            Vector result = Vector.parseString("[0]");
             switch (operation.operator){
                 case "+":
                     result = Vector.add(Vector.parseString(leftNode.value), Vector.parseString(rightNode.value));
@@ -56,8 +54,8 @@ public class VectorWrapper extends Plugin{
                     result = Vector.sub(Vector.parseString(leftNode.value), Vector.parseString(rightNode.value));
                     break;
                 case "*":
-                    LiteralNode vectorNode = isVector(leftNode) ? leftNode : rightNode;
-                    LiteralNode scalarNode = isDouble(leftNode) ? leftNode : rightNode;
+                    LitNode vectorNode = isVector(leftNode) ? leftNode : rightNode;
+                    LitNode scalarNode = isDouble(leftNode) ? leftNode : rightNode;
 
                     Vector v = Vector.parseString(vectorNode.value);
                     Double s = Double.parseDouble(scalarNode.value);
@@ -67,13 +65,13 @@ public class VectorWrapper extends Plugin{
             }
 
 
-            return new LiteralNode(result.toString());
+            return new LitNode(result.toString());
         }
 
         @Override
-        public boolean canProcess(OperatorNode operation){
-            LiteralNode leftNode = (LiteralNode)operation.left;
-            LiteralNode rightNode = (LiteralNode)operation.right;
+        public boolean canProcess(OpNode operation){
+            LitNode leftNode = (LitNode)operation.left;
+            LitNode rightNode = (LitNode)operation.right;
 
             switch (operation.operator){
                 case "*":
@@ -98,7 +96,7 @@ public class VectorWrapper extends Plugin{
             return false;
         }
 
-        private boolean isDouble(LiteralNode node){
+        private boolean isDouble(LitNode node){
             try{
                 Double.parseDouble(node.value);
             }catch(Exception e){
@@ -108,7 +106,7 @@ public class VectorWrapper extends Plugin{
             return true;
         }
 
-        private boolean isVector(LiteralNode node){
+        private boolean isVector(LitNode node){
             try{
                 Vector.parseString(node.value);
             }catch(Exception e){

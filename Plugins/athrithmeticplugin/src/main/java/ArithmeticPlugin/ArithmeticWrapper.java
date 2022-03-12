@@ -6,8 +6,8 @@ import org.pf4j.PluginWrapper;
 
 
 import api.softwaredesign.PluginBase;
-import api.softwaredesign.AST.LiteralNode;
-import api.softwaredesign.AST.OperatorNode;
+import api.softwaredesign.AST.LitNode;
+import api.softwaredesign.AST.OpNode;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -38,10 +38,10 @@ public class ArithmeticWrapper extends Plugin{
         }
 
         @Override
-        public LiteralNode solveNode(OperatorNode operation){
+        public LitNode solveNode(OpNode operation){
 
-            LiteralNode leftNode = (LiteralNode)operation.left;
-            LiteralNode rightNode = (LiteralNode)operation.right;
+            LitNode leftNode = (LitNode)operation.left;
+            LitNode rightNode = (LitNode)operation.right;
 
             double left = Double.parseDouble(leftNode.value);
             double right = Double.parseDouble(rightNode.value);
@@ -63,13 +63,13 @@ public class ArithmeticWrapper extends Plugin{
                     break;
             }
 
-            return new LiteralNode(Double.toString(result));
+            return new LitNode(Double.toString(result));
         }
 
         @Override
-        public boolean canProcess(OperatorNode operation){
-            LiteralNode leftNode = (LiteralNode)operation.left;
-            LiteralNode rightNode = (LiteralNode)operation.right;
+        public boolean canProcess(OpNode operation){
+            LitNode leftNode = (LitNode)operation.left;
+            LitNode rightNode = (LitNode)operation.right;
             try{
                 Double.parseDouble(leftNode.value);
                 Double.parseDouble(rightNode.value);
@@ -77,9 +77,7 @@ public class ArithmeticWrapper extends Plugin{
                 return false;
             }
 
-            boolean operatorKnown = "+-*/".contains(operation.operator);
-
-            return operatorKnown;
+            return "+-*/".contains(operation.operator);
         }
     }
 }
