@@ -18,10 +18,12 @@ There is code in 3 places, divided to allow for plugin development
 ## Building
 Running the following command will build the app, api, and sample plugins
 
-    gradlew build
-  
+    ./gradlew build
+
 A jar with the plugins folder is created in app/build/libs/ that can be ran with
 
-    java -jar [jar name]
+## Running
+The fat jar file can be run from where it is generated or from the out folder by typing:
+
+    java -jar app-plugin-fatjar.jar
   
-You might need to run as administrator for it to work
