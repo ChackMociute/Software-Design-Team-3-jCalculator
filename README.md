@@ -4,9 +4,9 @@
 ### Team Members
 
 1. Martynas Vaznonis
-2. Bekir Altun
-3. Matthijs Hulsebos
-4. Isaac Lewis
+2. Isaac Lewis
+3. Bekir Altun
+4. Matthijs Hulsebos
 
 ## Source code
 There is code in 3 places, divided to allow for plugin development
