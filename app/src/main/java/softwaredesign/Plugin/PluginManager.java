@@ -51,7 +51,7 @@ public class PluginManager {
                 return plugin.solveNode(operation);
             }
         }
-        return new ErrNode(Error.UNKNOWN_OP);
+        return new ErrNode(Error.UNKNOWN_OP, operation.operator);
     }
 
     public int getOperatorPrecedence(String operator){

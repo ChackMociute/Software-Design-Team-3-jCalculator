@@ -2,7 +2,7 @@ package softwaredesign.Equation;
 
 public class Equation {
     private final String equationString;
-    private String answer;
+    private final String answer;
     
     public Equation(String equationString){
         this.equationString = equationString;

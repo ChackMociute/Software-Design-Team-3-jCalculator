@@ -2,8 +2,10 @@ package softwaredesign.Equation;
 
 import softwaredesign.Equation.Equation;
 
+import java.util.ArrayList;
+
 public class History {
-    private Equation[] equations;
+    private ArrayList<Equation> equations;
 
     public void undo(){
 
@@ -17,7 +19,7 @@ public class History {
         return new Equation("");
     }
 
-    public Equation[] getEquations(){
+    public ArrayList<Equation> getEquations(){
         return equations;
     }
 }
