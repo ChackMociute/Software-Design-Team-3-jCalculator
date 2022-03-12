@@ -1,0 +1,7 @@
+Manifest-Version: 1.0
+Plugin-Class: ArithmeticPlugin.ArithmeticWrapper
+Plugin-Id: Arithmetic-Plugin
+Plugin-Version: task ':Plugins:athrithmeticplugin:jar' property 'archive
+ Version'
+Plugin-Provider: softwaredesign
+
