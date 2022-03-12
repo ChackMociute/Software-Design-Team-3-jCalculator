@@ -47,7 +47,7 @@ public class VectorWrapper extends Plugin{
             LiteralNode rightNode = (LiteralNode)operation.right;
 
 
-            Vector result = Vector.parseString("[0]");
+            Vector result = null;
             switch (operation.operator){
                 case "+":
                     result = Vector.add(Vector.parseString(leftNode.value), Vector.parseString(rightNode.value));
@@ -66,6 +66,7 @@ public class VectorWrapper extends Plugin{
                     break;
             }
 
+
             return new LiteralNode(result.toString());
         }
 
@@ -82,7 +83,16 @@ public class VectorWrapper extends Plugin{
 
                 case "+": // Both have to be vectors
                 case "-":
-                    return isVector(leftNode) && isVector(rightNode);
+                    boolean areVectors = isVector(leftNode) && isVector(rightNode);
+
+                    if(areVectors){
+                        Vector leftVec = Vector.parseString(leftNode.value);
+                        Vector rightVec = Vector.parseString(rightNode.value);
+
+                        return leftVec.getDim() == rightVec.getDim();
+                    }
+
+                    return areVectors;
             }
 
             return false;

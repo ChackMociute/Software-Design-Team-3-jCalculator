@@ -57,7 +57,7 @@ class Vector {
         var components = new ArrayList<Double>();
 
         for(int i = 0; i < a.getDim(); i++){
-            components.add(a.components.get(i) + b.components.get(i));
+            components.add(a.components.get(i) - b.components.get(i));
         }
 
         return new Vector(components);

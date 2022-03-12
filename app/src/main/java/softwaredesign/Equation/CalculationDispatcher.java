@@ -111,9 +111,9 @@ public final class CalculationDispatcher {
 
             if(pluginManager.isOperator(token)){
                 OperatorNode newNode = new OperatorNode(token);
-                newNode.left = nodeStack.pop();
+                newNode.right = nodeStack.pop();
 
-                if(!isFunction(token)) newNode.right = nodeStack.pop();
+                if(!isFunction(token)) newNode.left = nodeStack.pop();
 
                 nodeStack.push(newNode);
             }else{
