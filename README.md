@@ -9,7 +9,7 @@
 4. Matthijs Hulsebos
 
 ## Pre built 
-A pre-built fat jar is provided in the out\ folder.
+A pre-built fat jar is provided in the out/ folder.
 
 ## Building
 To build the gradle build task must be ran from IDEA (For now it doesn't work from the command line for some reason)
