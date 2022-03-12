@@ -39,7 +39,7 @@ public class TrigWrapper extends Plugin{
 
         @Override
         public LitNode solveNode(OpNode operation){
-            LitNode leftNode = (LitNode)operation.left;
+            LitNode leftNode = (LitNode)operation.right;
 
             double left = Double.parseDouble(leftNode.value);
 
@@ -62,11 +62,10 @@ public class TrigWrapper extends Plugin{
 
         @Override
         public boolean canProcess(OpNode operation){
-            LitNode leftNode = (LitNode)operation.left;
-            LitNode rightNode = (LitNode)operation.right;
             try{
-                Double.parseDouble(leftNode.value);
-            }catch(NumberFormatException e){
+                LitNode rightNode = (LitNode)operation.right;
+                Double.parseDouble(rightNode.value);
+            }catch(Exception e){
                 return false;
             }
 

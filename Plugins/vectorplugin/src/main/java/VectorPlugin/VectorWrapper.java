@@ -107,6 +107,8 @@ public class VectorWrapper extends Plugin{
         }
 
         private boolean isVector(LitNode node){
+            if(node.value.charAt(0) != '[') return false;
+
             try{
                 Vector.parseString(node.value);
             }catch(Exception e){
