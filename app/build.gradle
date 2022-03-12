@@ -16,13 +16,13 @@ dependencies {
     compile group: 'org.pf4j', name: 'pf4j', version: "${pf4jVersion}"
     annotationProcessor(group: 'org.pf4j', name: 'pf4j', version: "${pf4jVersion}")
     compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.5'
-    //compile group: 'org.slf4j', name: 'slf4j-simple', version: '1.7.25'
+    compile group: 'org.slf4j', name: 'slf4j-nop', version: '2.0.0-alpha6'
 
     testImplementation group: 'junit', name: 'junit', version: '4.13.1'
     //implementation 'org.apache.logging.log4j:log4j-spring-cloud-config-client:2.17.2'
 }
 
-task uberjar(type: Jar, dependsOn: ['compileJava']) {
+task fatjar(type: Jar, dependsOn: ['compileJava']) {
     zip64 true
     from configurations.runtimeClasspath.asFileTree.files.collect {
         exclude "META-INF/*.SF"
@@ -37,5 +37,5 @@ task uberjar(type: Jar, dependsOn: ['compileJava']) {
     }
 
     archiveBaseName = "${project.name}-plugin"
-    archiveClassifier = "uberjar"
+    archiveClassifier = "fatjar"
 }

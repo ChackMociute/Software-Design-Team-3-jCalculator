@@ -8,4 +8,4 @@ subprojects {
 }
 
 ext.pluginsDir = rootProject.buildDir.path + '/../app/build/libs/plugins'
-task build(dependsOn: [':app:uberjar'])
+task build(dependsOn: [':app:fatjar'])
