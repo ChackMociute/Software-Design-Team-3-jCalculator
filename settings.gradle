@@ -1,2 +1,11 @@
 rootProject.name = 'software-design-vu-2020'
 
+include 'api'
+
+include 'app'
+
+include 'Plugins'
+
+include 'Plugins:athrithmeticplugin'
+include 'Plugins:trigplugin'
+include 'Plugins:vectorplugin'

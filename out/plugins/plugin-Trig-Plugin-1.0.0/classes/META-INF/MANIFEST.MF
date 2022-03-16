@@ -1,0 +1,6 @@
+Manifest-Version: 1.0
+Plugin-Class: TrigPlugin.TrigWrapper
+Plugin-Id: Trig-Plugin
+Plugin-Version: task ':Plugins:trigplugin:jar' property 'archiveVersion'
+Plugin-Provider: softwaredesign
+
