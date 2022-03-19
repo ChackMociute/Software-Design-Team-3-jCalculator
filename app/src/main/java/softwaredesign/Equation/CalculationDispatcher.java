@@ -2,9 +2,8 @@ package softwaredesign.Equation;
 
 import softwaredesign.Plugin.PluginManager;
 
-import java.util.ArrayDeque;
-import java.util.Queue;
-import java.util.Stack;
+import java.util.*;
+import java.util.regex.Pattern;
 
 import api.softwaredesign.AST.ASTNode;
 import api.softwaredesign.AST.ErrNode;
@@ -52,7 +51,7 @@ public final class CalculationDispatcher {
     }
 
     private static ArrayDeque<String> generatePostFixQueue(String equation, ErrNode outErrorNode){
-        String[] tokens = equation.split(" ");
+        String[] tokens = tokenize(equation);
 
         ArrayDeque<String> outputQueue = new ArrayDeque<>();
         Stack<String> operatorStack = new Stack<>();
@@ -123,6 +122,69 @@ public final class CalculationDispatcher {
 
         if(nodeStack.isEmpty()) return new ErrNode(Error.POSTFIX);
         return nodeStack.peek();
+    }
+
+    private static String[] tokenize(String equation){
+        var tokens = new ArrayList<String>();
+
+        for(int i = 0; i < equation.length(); i++){
+            String currentCharacter = equation.substring(i, i+1);
+            if(isToken(currentCharacter)){
+                tokens.add(currentCharacter);
+            }else if(new ofNumericalType().isOfType(currentCharacter)){
+                int j = getSliceSize(equation.substring(i+1), new ofNumericalType());
+                tokens.add(equation.substring(i, i+j));
+                i = i+j-1;
+            }else if(new ofAlphabeticalType().isOfType(currentCharacter)){
+                int j = getSliceSize(equation.substring(i+1), new ofAlphabeticalType());
+                tokens.add(equation.substring(i, i+j));
+                i = i+j-1;
+            }else if(currentCharacter.equals("[")){
+                int j = getSliceSize(equation.substring(i+1), new ofVectorType());
+                tokens.add(equation.substring(i, i+j+1));
+                i = i+j;
+            }
+        }
+
+        return tokens.toArray(new String[tokens.size()]);
+    }
+
+    private static boolean isToken(String character){
+        return "()".contains(character) |
+                pluginManager.isOperator(character);
+    }
+
+    private static int getSliceSize(String equation, ofType type){
+        int i = 0;
+        while(i < equation.length()){
+            if(!type.isOfType(equation.substring(i, i+1))){
+                break;
+            }
+            i++;
+        }
+        return i+1;
+    }
+
+    private interface ofType{
+        boolean isOfType(String character);
+    }
+
+    private static class ofNumericalType implements ofType{
+        public boolean isOfType(String character) {
+            return "0123456789".contains(character);
+        }
+    }
+
+    private static class ofAlphabeticalType implements ofType{
+        public boolean isOfType(String character) {
+            return Pattern.compile("[a-zA-Z]").matcher(character).find();
+        }
+    }
+
+    private static class ofVectorType implements ofType{
+        public boolean isOfType(String character) {
+            return !character.equals("]");
+        }
     }
 
     private static boolean isFunction(String operator){
