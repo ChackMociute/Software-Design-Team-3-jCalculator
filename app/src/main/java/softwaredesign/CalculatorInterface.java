@@ -15,7 +15,7 @@ public class CalculatorInterface {
 
     public String getInput(){
         //System.out.print("\u001B[36m");
-        System.out.print("Enter equation : ");
+        System.out.print("Enter expression : ");
         return scanner.nextLine();
     }
 }
