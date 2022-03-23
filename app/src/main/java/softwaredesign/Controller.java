@@ -37,7 +37,7 @@ public class Controller {
     }
 
     public void start(){
-        System.out.println("Please type calculations with spaces between values. E.g. sin ( 5 + 1 ) * [1,2,3]\n");
+        calcInterface.printIntroduction();
 
         pluginManager.reloadPlugins();
 
