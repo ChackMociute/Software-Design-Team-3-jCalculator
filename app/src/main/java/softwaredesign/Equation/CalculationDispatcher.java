@@ -131,14 +131,22 @@ public final class CalculationDispatcher {
             String currentCharacter = equation.substring(i, i+1);
             if(isToken(currentCharacter)){
                 tokens.add(currentCharacter);
+                if(")]".contains(currentCharacter) & nextTokenImplicitMultiplication(equation.substring(i+1)))
+                    tokens.add("*");
             }else if(new ofNumericalType().isOfType(currentCharacter)){
                 int j = getSliceSize(equation.substring(i+1), new ofNumericalType());
                 tokens.add(equation.substring(i, i+j));
+                if(nextTokenImplicitMultiplication(equation.substring(i+j))) tokens.add("*");
                 i = i+j-1;
             }else if(new ofAlphabeticalType().isOfType(currentCharacter)){
                 int j = getSliceSize(equation.substring(i+1), new ofAlphabeticalType());
-                tokens.add(equation.substring(i, i+j));
-                i = i+j-1;
+                if(pluginManager.isOperator(equation.substring(i, i+j))){
+                    tokens.add(equation.substring(i, i+j));
+                    i = i+j-1;
+                }else{
+                    tokens.add(currentCharacter);
+                    if(nextTokenImplicitMultiplication(equation.substring(i+1))) tokens.add("*");
+                }
             }else if(currentCharacter.equals("[")){
                 int j = getSliceSize(equation.substring(i+1), new ofVectorType());
                 tokens.add(equation.substring(i, i+j+1));
@@ -152,6 +160,19 @@ public final class CalculationDispatcher {
     private static boolean isToken(String character){
         return "()".contains(character) |
                 pluginManager.isOperator(character);
+    }
+
+    private static boolean nextTokenImplicitMultiplication(String equation){
+        int i = 0;
+        while(i < equation.length()){
+            String currentCharacter = equation.substring(i, i+1);
+            if(!currentCharacter.equals(" ")){
+                return "([".contains(currentCharacter) |
+                        new ofAlphabeticalType().isOfType(currentCharacter);
+            }
+            i++;
+        }
+        return false;
     }
 
     private static int getSliceSize(String equation, ofType type){
