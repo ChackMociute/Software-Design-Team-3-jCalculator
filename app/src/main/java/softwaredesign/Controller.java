@@ -59,6 +59,10 @@ public class Controller {
             if(input.equals("quit")) {
                 if(menuState == 0) break;
                 else menuState = 0;
+            }else if (input.equals("undo")){
+                history.undo();
+                calcInterface.renderEquation(history.getLastEquation());
+                continue;
             }
 
             if(menuState == 0){
