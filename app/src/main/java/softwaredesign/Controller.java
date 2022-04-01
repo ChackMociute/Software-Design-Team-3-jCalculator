@@ -30,6 +30,7 @@ public class Controller {
         pluginStoreManager = new PluginStoreManager(pluginManager);
 
         CalculationDispatcher.setPluginManager(pluginManager);
+        CalculationDispatcher.setHistory(history);
     }
 
     public PluginManager getPluginManager(){

@@ -1,5 +1,6 @@
 package softwaredesign.Equation;
 
+import softwaredesign.Controller;
 import softwaredesign.Plugin.PluginManager;
 
 import java.util.*;
@@ -13,7 +14,11 @@ import api.softwaredesign.AST.Error;
 
 public final class CalculationDispatcher {
     private static PluginManager pluginManager;
-    
+    private static History history;
+
+    public static void setHistory(History newHistory){
+        history = newHistory;
+    }
     public static void setPluginManager(PluginManager newPluginManager){
         pluginManager = newPluginManager;
     }
@@ -108,6 +113,8 @@ public final class CalculationDispatcher {
         while(!queue.isEmpty()){
             String token = queue.remove();
 
+            if(token.toLowerCase(Locale.ROOT).equals("ans")) token = history.getANS();
+
             if(pluginManager.isOperator(token)){
                 OpNode newNode = new OpNode(token);
                 newNode.right = nodeStack.pop();
@@ -140,8 +147,9 @@ public final class CalculationDispatcher {
                 i = i+j-1;
             }else if(new ofAlphabeticalType().isOfType(currentCharacter)){
                 int j = getSliceSize(equation.substring(i+1), new ofAlphabeticalType());
-                if(pluginManager.isOperator(equation.substring(i, i+j))){
-                    tokens.add(equation.substring(i, i+j));
+                String slice = equation.substring(i, i+j);
+                if(pluginManager.isOperator(slice) || slice.toLowerCase(Locale.ROOT).equals("ans")){
+                    tokens.add(slice);
                     i = i+j-1;
                 }else{
                     tokens.add(currentCharacter);

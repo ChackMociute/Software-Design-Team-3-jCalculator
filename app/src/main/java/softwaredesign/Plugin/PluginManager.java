@@ -8,6 +8,7 @@ import api.softwaredesign.AST.OpNode;
 import api.softwaredesign.PluginBase;
 
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 import java.util.List;
 
