@@ -11,6 +11,8 @@
 ## Pre built 
 A pre-built fat jar is provided in the out/ folder.
 
+When running in an IDE, the working directory should be set to the /out folder, as that's where the plugins are located. Failure to do so will cause plugins to not load.
+
 ## Building
 To build the gradle build task must be ran from IDEA (For now it doesn't work from the command line for some reason)
 

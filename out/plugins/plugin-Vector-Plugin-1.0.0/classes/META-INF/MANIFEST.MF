@@ -1,7 +1,0 @@
-Manifest-Version: 1.0
-Plugin-Class: VectorPlugin.VectorWrapper
-Plugin-Id: Vector-Plugin
-Plugin-Version: task ':Plugins:vectorplugin:jar' property 'archiveVersio
- n'
-Plugin-Provider: softwaredesign
-

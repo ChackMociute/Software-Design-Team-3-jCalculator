@@ -1,5 +1,8 @@
 package ArithmeticPlugin;
 
+import api.softwaredesign.AST.ASTNode;
+import api.softwaredesign.AST.ErrNode;
+import api.softwaredesign.AST.Error;
 import org.pf4j.Extension;
 import org.pf4j.Plugin;
 import org.pf4j.PluginWrapper;
@@ -38,7 +41,7 @@ public class ArithmeticWrapper extends Plugin{
         }
 
         @Override
-        public LitNode solveNode(OpNode operation){
+        public ASTNode solveNode(OpNode operation){
 
             LitNode leftNode = (LitNode)operation.left;
             LitNode rightNode = (LitNode)operation.right;
@@ -59,6 +62,7 @@ public class ArithmeticWrapper extends Plugin{
                     result = left * right;
                     break;
                 case "/":
+                    if(right == 0) return new ErrNode(Error.PLUGIN_ERROR, "Divide by 0 error");
                     result = left / right;
                     break;
             }
