@@ -136,7 +136,10 @@ public final class CalculationDispatcher {
 
         for(int i = 0; i < equation.length(); i++){
             String currentCharacter = equation.substring(i, i+1);
-            if(isToken(currentCharacter)){
+            if(currentCharacter.equals("-") & needImplicitZero(tokens)){
+                tokens.add("0");
+                tokens.add(currentCharacter);
+            }else if(isToken(currentCharacter)){
                 tokens.add(currentCharacter);
                 if(")]".contains(currentCharacter) & nextTokenImplicitMultiplication(equation.substring(i+1)))
                     tokens.add("*");
@@ -168,6 +171,11 @@ public final class CalculationDispatcher {
     private static boolean isToken(String character){
         return "()".contains(character) |
                 pluginManager.isOperator(character);
+    }
+
+    private static boolean needImplicitZero(ArrayList<String> tokens){
+        if(tokens.size() == 0) return true;
+        return tokens.get(tokens.size() - 1).equals("(");
     }
 
     private static boolean nextTokenImplicitMultiplication(String equation){
