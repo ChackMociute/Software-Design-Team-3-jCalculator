@@ -43,49 +43,48 @@ public class Controller {
         pluginManager.reloadPlugins();
 
         pluginStoreManager.loadAvaliablePlugins();
-
-        // Should be enum
-        // 0 = main menu
-        // 1 = calculator
-        // 2 = plugin store
-        int menuState = 0;
+        
+        MenuState menuState = MenuState.MAIN;
 
         while(true){
-            if(menuState == 0) calcInterface.printMenu();
-            else if(menuState == 1) calcInterface.printCalculatorPrompt();
-            else if(menuState == 2) calcInterface.printPluginData(pluginStoreManager.getAvaliablePlugins());
+            if(menuState == menuState.MAIN)
+                calcInterface.printMenu();
+            else if(menuState == menuState.CALCULATOR)
+                calcInterface.printCalculatorPrompt();
+            else if(menuState == menuState.STORE)
+                calcInterface.printPluginData(pluginStoreManager.getAvaliablePlugins());
 
             String input = calcInterface.getInput();
             if(input.equals("quit")) {
-                if(menuState == 0) break;
-                else menuState = 0;
+                if(menuState == menuState.MAIN) break;
+                else menuState = menuState.MAIN;
             }else if (input.equals("undo")){
                 history.undo();
                 calcInterface.renderEquation(history.getLastEquation());
                 continue;
             }
 
-            if(menuState == 0){
+            if(menuState == menuState.MAIN){
                 try{
                     int intInput = Integer.parseInt(input);
                     if(0 < intInput && intInput < 3){
-                        menuState = intInput;
+                        menuState = MenuState.values()[intInput];
                     }
-                }catch(NumberFormatException e){
+                }catch(NumberFormatException ignored){
 
                 }
             }
-            else if(menuState == 1) {
+            else if(menuState == menuState.CALCULATOR) {
                 var fullEquation = new Equation(input);
                 history.addEquation(fullEquation);
 
                 calcInterface.renderEquation(fullEquation);
-            }else if(menuState == 2){
-                boolean success = true;
+            }else if(menuState == menuState.STORE){
+                boolean success;
                 try{
                     int intInput = Integer.parseInt(input);
                     success = pluginStoreManager.downloadPlugin(intInput);
-                }catch(NumberFormatException e){
+                }catch(NumberFormatException ignored){
                     success = false;
                 }
 
