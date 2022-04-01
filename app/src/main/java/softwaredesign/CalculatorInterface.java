@@ -17,6 +17,8 @@ public class CalculatorInterface {
 
     public void printIntroduction(){
         System.out.println("Please type expressions. E.g. 2sin(5 + 1) * [1, 2, 3]");
+        System.out.println("Use ans in your expressions to substitute for the result of the last equation");
+        System.out.println("Use undo to revert the last equation");
         System.out.println("Please type 'quit' to exit\n");
     }
 

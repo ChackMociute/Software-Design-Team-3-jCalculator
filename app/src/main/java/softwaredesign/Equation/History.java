@@ -6,7 +6,7 @@ public class History {
     private final Stack<Equation> history = new Stack<Equation>();
 
     public void undo(){
-        history.pop();
+        if(!history.empty()) history.pop();
     }
 
     public void addEquation(Equation equation){
@@ -14,10 +14,12 @@ public class History {
     }
 
     public Equation getLastEquation(){
+        if(history.empty()) return new Equation("");
         return history.peek();
     }
 
     public String getANS(){
+        if(history.empty()) return "";
         return history.peek().getAnswer();
     }
 
