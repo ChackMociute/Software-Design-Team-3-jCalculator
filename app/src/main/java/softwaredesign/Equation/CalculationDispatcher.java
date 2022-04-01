@@ -174,7 +174,7 @@ public final class CalculationDispatcher {
     }
 
     private static boolean needImplicitZero(ArrayList<String> tokens){
-        if(tokens.size() == 0) return true;
+        if(tokens.isEmpty()) return true;
         return tokens.get(tokens.size() - 1).equals("(");
     }
 

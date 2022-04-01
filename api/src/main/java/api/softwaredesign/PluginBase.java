@@ -1,7 +1,6 @@
 package api.softwaredesign;
 
 import api.softwaredesign.AST.ASTNode;
-import api.softwaredesign.AST.LitNode;
 import api.softwaredesign.AST.OpNode;
 import java.util.Map;
 

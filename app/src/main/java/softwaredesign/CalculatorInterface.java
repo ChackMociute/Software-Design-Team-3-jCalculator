@@ -3,7 +3,6 @@ package softwaredesign;
 import softwaredesign.Equation.Equation;
 import softwaredesign.Plugin.PluginStore.PluginData;
 
-import java.io.Console;
 import java.util.List;
 import java.util.Scanner;
 
@@ -11,7 +10,6 @@ public class CalculatorInterface {
     Scanner scanner = new Scanner(System.in);
 
     public void renderEquation(Equation equation){
-        //System.out.print("\u001B[34m");
         System.out.println(equation);
     }
 
@@ -36,11 +34,10 @@ public class CalculatorInterface {
     }
 
     public void printCalculatorPrompt(){
-        System.out.print("Enter expression : ");
+        System.out.print("Enter expression: ");
     }
 
     public String getInput(){
-        //System.out.print("\u001B[36m");
         return scanner.nextLine();
     }
 }

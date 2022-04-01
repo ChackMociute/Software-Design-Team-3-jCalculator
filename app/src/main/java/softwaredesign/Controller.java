@@ -43,7 +43,7 @@ public class Controller {
         pluginManager.reloadPlugins();
 
         pluginStoreManager.loadAvaliablePlugins();
-        
+
         MenuState menuState = MenuState.MAIN;
 
         while(true){
