@@ -41,17 +41,52 @@ public class Controller {
 
         pluginManager.reloadPlugins();
 
-        while(true){
-            String input = calcInterface.getInput();
+        pluginStoreManager.loadAvaliablePlugins();
 
+        // Should be enum
+        // 0 = main menu
+        // 1 = calculator
+        // 2 = plugin store
+        int menuState = 0;
+
+        while(true){
+            if(menuState == 0) calcInterface.printMenu();
+            else if(menuState == 1) calcInterface.printCalculatorPrompt();
+            else if(menuState == 2) calcInterface.printPluginData(pluginStoreManager.getAvaliablePlugins());
+
+            String input = calcInterface.getInput();
             if(input.equals("quit")) {
-                break;
+                if(menuState == 0) break;
+                else menuState = 0;
             }
 
-            var fullEquation = new Equation(input);
-            history.addEquation(fullEquation);
+            if(menuState == 0){
+                try{
+                    int intInput = Integer.parseInt(input);
+                    if(0 < intInput && intInput < 3){
+                        menuState = intInput;
+                    }
+                }catch(NumberFormatException e){
 
-            calcInterface.renderEquation(fullEquation);
+                }
+            }
+            else if(menuState == 1) {
+                var fullEquation = new Equation(input);
+                history.addEquation(fullEquation);
+
+                calcInterface.renderEquation(fullEquation);
+            }else if(menuState == 2){
+                boolean success = true;
+                try{
+                    int intInput = Integer.parseInt(input);
+                    success = pluginStoreManager.downloadPlugin(intInput);
+                }catch(NumberFormatException e){
+                    success = false;
+                }
+
+                if(success) System.out.println("Download successful");
+                else System.out.println("Download failed");
+            }
         }
     }
 }

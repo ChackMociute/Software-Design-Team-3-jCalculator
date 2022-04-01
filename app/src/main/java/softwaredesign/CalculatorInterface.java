@@ -1,8 +1,10 @@
 package softwaredesign;
 
 import softwaredesign.Equation.Equation;
+import softwaredesign.Plugin.PluginStore.PluginData;
 
 import java.io.Console;
+import java.util.List;
 import java.util.Scanner;
 
 public class CalculatorInterface {
@@ -18,9 +20,25 @@ public class CalculatorInterface {
         System.out.println("Please type 'quit' to exit\n");
     }
 
+    public void printPluginData(List<PluginData> pluginData){
+        System.out.println("Type quit to go back");
+        for(int i = 0; i < pluginData.size(); i++){
+            PluginData data = pluginData.get(i);
+            System.out.printf("%d. %s: %s%n", i, data.getName(), data.getDesc());
+        }
+    }
+
+    public void printMenu(){
+        System.out.println("1. Calculator");
+        System.out.println("2. Plugin Store");
+    }
+
+    public void printCalculatorPrompt(){
+        System.out.print("Enter expression : ");
+    }
+
     public String getInput(){
         //System.out.print("\u001B[36m");
-        System.out.print("Enter expression : ");
         return scanner.nextLine();
     }
 }

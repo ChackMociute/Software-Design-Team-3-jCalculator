@@ -5,7 +5,7 @@ mainClassName="softwaredesign.Main"
 
 sourceCompatibility = 11
 run {
-    standardInput = System.in;
+    standardInput = System.in
 
     systemProperty 'pf4j.pluginsDir', './build/libs/plugins/'
 }
@@ -17,6 +17,9 @@ dependencies {
     annotationProcessor(group: 'org.pf4j', name: 'pf4j', version: "${pf4jVersion}")
     compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.5'
     compile group: 'org.slf4j', name: 'slf4j-nop', version: '2.0.0-alpha6'
+// https://mvnrepository.com/artifact/org.json/json
+    implementation group: 'org.json', name: 'json', version: '20220320'
+
 
     testImplementation group: 'junit', name: 'junit', version: '4.13.1'
     //implementation 'org.apache.logging.log4j:log4j-spring-cloud-config-client:2.17.2'

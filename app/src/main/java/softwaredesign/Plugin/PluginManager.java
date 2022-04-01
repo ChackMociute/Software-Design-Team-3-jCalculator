@@ -22,11 +22,15 @@ public class PluginManager {
         pluginManager = new DefaultPluginManager();
     }
 
+    public void unloadPlugins(){
+        pluginManager.stopPlugins();
+        pluginManager.unloadPlugins();
+    }
+
     public boolean reloadPlugins(){
         operatorPrecedences.clear();
 
-        /*pluginManager.stopPlugins();
-        pluginManager.unloadPlugins();*/
+        unloadPlugins();
 
         pluginManager.loadPlugins();
         pluginManager.startPlugins();
