@@ -1,25 +1,29 @@
 package softwaredesign.Equation;
 
-import softwaredesign.Equation.Equation;
-
-import java.util.ArrayList;
+import java.util.Stack;
 
 public class History {
-    private ArrayList<Equation> equations;
+    private final Stack<Equation> history = new Stack<Equation>();
 
     public void undo(){
-
+        if(!history.empty()) history.pop();
     }
 
     public void addEquation(Equation equation){
-
+        history.add(equation);
     }
 
     public Equation getLastEquation(){
-        return new Equation("");
+        if(history.empty()) return new Equation("");
+        return history.peek();
     }
 
-    public ArrayList<Equation> getEquations(){
-        return equations;
+    public String getANS(){
+        if(history.empty()) return "";
+        return history.peek().getAnswer();
+    }
+
+    public Stack<Equation> getHistory(){
+        return history;
     }
 }

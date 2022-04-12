@@ -8,6 +8,7 @@ import api.softwaredesign.AST.OpNode;
 import api.softwaredesign.PluginBase;
 
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 import java.util.List;
 
@@ -22,11 +23,15 @@ public class PluginManager {
         pluginManager = new DefaultPluginManager();
     }
 
+    public void unloadPlugins(){
+        pluginManager.stopPlugins();
+        pluginManager.unloadPlugins();
+    }
+
     public boolean reloadPlugins(){
         operatorPrecedences.clear();
 
-        /*pluginManager.stopPlugins();
-        pluginManager.unloadPlugins();*/
+        unloadPlugins();
 
         pluginManager.loadPlugins();
         pluginManager.startPlugins();

@@ -30,6 +30,7 @@ public class Controller {
         pluginStoreManager = new PluginStoreManager(pluginManager);
 
         CalculationDispatcher.setPluginManager(pluginManager);
+        CalculationDispatcher.setHistory(history);
     }
 
     public PluginManager getPluginManager(){
@@ -37,21 +38,59 @@ public class Controller {
     }
 
     public void start(){
-        System.out.println("Please type calculations with spaces between values. E.g. sin ( 5 + 1 ) * [1,2,3]\n");
+        calcInterface.printIntroduction();
 
         pluginManager.reloadPlugins();
 
-        while(true){
-            String input = calcInterface.getInput();
+        pluginStoreManager.loadAvaliablePlugins();
 
+        MenuState menuState = MenuState.MAIN;
+
+        while(true){
+            if(menuState == menuState.MAIN)
+                calcInterface.printMenu();
+            else if(menuState == menuState.CALCULATOR)
+                calcInterface.printCalculatorPrompt();
+            else if(menuState == menuState.STORE)
+                calcInterface.printPluginData(pluginStoreManager.getAvaliablePlugins());
+
+            String input = calcInterface.getInput();
             if(input.equals("quit")) {
-                break;
+                if(menuState == menuState.MAIN) break;
+                else menuState = menuState.MAIN;
+            }else if (input.equals("undo")){
+                history.undo();
+                calcInterface.renderEquation(history.getLastEquation());
+                continue;
             }
 
-            var fullEquation = new Equation(input);
-            history.addEquation(fullEquation);
+            if(menuState == menuState.MAIN){
+                try{
+                    int intInput = Integer.parseInt(input);
+                    if(0 < intInput && intInput < 3){
+                        menuState = MenuState.values()[intInput];
+                    }
+                }catch(NumberFormatException ignored){
 
-            calcInterface.renderEquation(fullEquation);
+                }
+            }
+            else if(menuState == menuState.CALCULATOR) {
+                var fullEquation = new Equation(input);
+                history.addEquation(fullEquation);
+
+                calcInterface.renderEquation(fullEquation);
+            }else if(menuState == menuState.STORE){
+                boolean success;
+                try{
+                    int intInput = Integer.parseInt(input);
+                    success = pluginStoreManager.downloadPlugin(intInput);
+                }catch(NumberFormatException ignored){
+                    success = false;
+                }
+
+                if(success) System.out.println("Download successful");
+                else System.out.println("Download failed");
+            }
         }
     }
 }
